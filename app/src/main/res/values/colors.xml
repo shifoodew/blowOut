@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background_main">#002754</color> <!-- #26ae90 -->
+    <color name="white">#ffffff</color>
+
+    <color name="input_hint_txtColor">#ff4081</color>
+    <color name="input_textColor">#ff4081</color>
+
+
+    <color name="btn_textColor">#002754</color>
+    <color name="textColor">#ffffff</color>
+    <color name="btn_backgrndColor">#eceef1</color>
+    <color name="lbl_name">#333333</color>
+
+    <color name="btn_logut_bg">#ff6f00</color>
+
+    <!--App bar -->
+    <color name="app_bar">#002754</color> <!-- #26ae90 -->
+
+
+    <!-- Cardview label and data's-->
+    <color name="label">#000000</color>
+    <color name="value">#428bca</color>
+
+    <color name="border">#ff6f00</color> <!-- #26ae90 -->
+</resources>
