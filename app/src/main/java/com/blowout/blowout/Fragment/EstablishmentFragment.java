@@ -49,6 +49,7 @@ public class EstablishmentFragment extends Fragment {
         @Override
         public void onItemClicked(EstablishmentData establishmentData) {
 
+            Log.d("onItemClicked", "id: "+establishmentData.id );
             Log.d("onItemClicked", "Name: "+establishmentData.name );
             Log.d("onItemClicked", "Type: "+establishmentData.type );
             Log.d("onItemClicked", "Address: "+establishmentData.address );

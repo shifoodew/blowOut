@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 public class EstablishmentData implements Serializable {
 
+    public String id;
+
     public String name;
 
     public String type;
