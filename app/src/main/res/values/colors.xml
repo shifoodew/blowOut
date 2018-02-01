@@ -2,13 +2,13 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffffff</color>
 
     <color name="background_main">#002754</color> <!-- #26ae90 -->
     <color name="white">#ffffff</color>
 
-    <color name="input_hint_txtColor">#ff4081</color>
-    <color name="input_textColor">#ff4081</color>
+    <color name="input_hint_txtColor">#ffffff</color>
+    <color name="input_textColor">#ffffff</color>
 
 
     <color name="btn_textColor">#002754</color>
@@ -27,4 +27,10 @@
     <color name="value">#428bca</color>
 
     <color name="border">#ff6f00</color> <!-- #26ae90 -->
+
+    <!-- Progress dialog-->
+    <color name="pdialog_textColor">#428bca</color>
+    <color name="pdialog_bgColor">#ffffff</color>
+    <color name="pdialog_progress_color">#428bca</color>
+
 </resources>

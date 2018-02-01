@@ -17,4 +17,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/pdialog_textColor</item>
+        <item name="android:background">@color/pdialog_bgColor</item>
+        <item name="colorAccent">@color/pdialog_progress_color</item>
+    </style>
+
 </resources>

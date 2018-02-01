@@ -31,7 +31,8 @@ public class RegisterActivity extends Activity {
     private Button btnLinkToLogin;
     private Button btnRegister;
 
-    private EditText inputUsername;
+    private EditText inputName;
+    private EditText inputEmail;
     private EditText inputPassword;
     private EditText inputConfirmPassword;
 
@@ -43,9 +44,11 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        inputUsername = findViewById(R.id.username);
+        inputName = findViewById(R.id.name);
+        inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         inputConfirmPassword =  findViewById(R.id.confirm_password);
+
         btnRegister = findViewById(R.id.btnRegister);
         btnLinkToLogin =  findViewById(R.id.btnLinkToLoginScreen);
 
@@ -69,16 +72,17 @@ public class RegisterActivity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String username = inputUsername.getText().toString().trim();
+                String name = inputName.getText().toString().trim();
+                String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString();
                 String confirm_password = inputConfirmPassword.getText().toString();
 
-                if (!username.isEmpty() && !password.isEmpty() && !confirm_password.isEmpty()) {
-                    Log.d(TAG, "Username                    : " + username);
+                if (!name.isEmpty() &&!email.isEmpty() && !password.isEmpty() && !confirm_password.isEmpty()) {
+                    Log.d(TAG, "Username                    : " + email);
                     //Check if confirm password does match
                     if(password.equals(confirm_password)){
                         Log.d(TAG, "password and confirm passwod is the same");
-                        registerUser(username, password, confirm_password);
+                        registerUser(name, email, password, confirm_password);
 
                     }else{
 
@@ -109,7 +113,7 @@ public class RegisterActivity extends Activity {
     /*
      * Method registeUSer
      */
-    private void registerUser(final String username, final String password, final String confirm_password) {
+    private void registerUser(final String name, final String email, final String password, final String confirm_password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -171,7 +175,8 @@ public class RegisterActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
+                params.put("name", name);
+                params.put("email", email);
                 params.put("password", password);
                 params.put("password_confirm", confirm_password);
 

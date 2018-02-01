@@ -25,11 +25,23 @@
             android:cropToPadding="false" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="@string/hint_username"
+            android:hint="@string/hint_name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="@color/input_textColor"
+            android:textColorHint="@color/input_hint_txtColor" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/hint_email"
             android:inputType="text"
             android:maxLines="1"
             android:padding="10dp"

@@ -46,13 +46,13 @@ public class LoginActivity  extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        inputUsername     =  findViewById(R.id.username);
+        inputUsername     = findViewById(R.id.username);
         inputPassword     = findViewById(R.id.password);
         btnLogin          = findViewById(R.id.btnLogin);
         btnLinkToRegister = findViewById(R.id.btnLinkToRegisterScreen);
 
         // Progress dialog
-        pDialog = new ProgressDialog(this);
+        pDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         pDialog.setCancelable(false);
 
         session = new SessionManager(getApplicationContext());
@@ -79,13 +79,13 @@ public class LoginActivity  extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String username = inputUsername.getText().toString().trim();
+                String email = inputUsername.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 // Check for empty data in the form
-                if (!username.isEmpty() && !password.isEmpty()) {
+                if (!email.isEmpty() && !password.isEmpty()) {
                     // login user
-                    checkLogin(username, password);
+                    checkLogin(email, password);
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
@@ -99,7 +99,7 @@ public class LoginActivity  extends Activity {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String username, final String password) {
+    private void checkLogin(final String email, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -133,16 +133,24 @@ public class LoginActivity  extends Activity {
                         if (!loginObject.isNull("user")) {
                             // handle user login data
                             JSONObject userJSONObject = (JSONObject) loginObject.get("user");
-                                Log.d(TAG, "User Object                  : " + userJSONObject.toString());
+                                Log.d(TAG, "User Object                   : " + userJSONObject.toString());
 
-                            String username = userJSONObject.getString("username");
-                                Log.d(TAG, "USER -username attribute          : " + userJSONObject.get("username").toString());
+                            String user_id = userJSONObject.getString("id");
+                                Log.d(TAG, "USER -id attribute          : " + userJSONObject.get("id").toString());
+
+                            String name = userJSONObject.getString("name");
+                                Log.d(TAG, "USER -name attribute          : " + userJSONObject.get("name").toString());
+
+                            String email = userJSONObject.getString("email");
+                                Log.d(TAG, "USER -email attribute      : " + userJSONObject.get("email").toString());
 
                             // Launch main activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("username", username); //passing data to another activity
+                            intent.putExtra("name", name); //passing data to another activity
+                            intent.putExtra("username", email); //passing data to another activity
                             startActivity(intent);
                             finish();
+
                         }
                         else {
                             // a new JSON string that doesn't have user in login Object
@@ -176,7 +184,7 @@ public class LoginActivity  extends Activity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
+                params.put("email", email);
                 params.put("password", password);
 
                 return params;
@@ -185,6 +193,7 @@ public class LoginActivity  extends Activity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();
@@ -193,4 +202,5 @@ public class LoginActivity  extends Activity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 }
