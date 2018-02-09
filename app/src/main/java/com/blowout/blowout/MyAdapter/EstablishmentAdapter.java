@@ -62,12 +62,12 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
     @Override
     public EstablishementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater= LayoutInflater.from(parent.getContext());
-        View view= inflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
+            LayoutInflater inflater= LayoutInflater.from(parent.getContext());
+            View view= inflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
 
-        EstablishementViewHolder estabHolder = new EstablishementViewHolder(view);
+            EstablishementViewHolder estabHolder = new EstablishementViewHolder(view);
 
-        return estabHolder;
+            return estabHolder;
     }
 
     @Override
@@ -78,7 +78,6 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
         String image_url= "http://192.168.43.150/blowOut/" + establishmentData.image;
 
         Picasso.with(context)
-//                .load(establishmentData.estabImage)
                 .load(image_url)
                 .placeholder(R.drawable.blowout)
                 .error(android.R.drawable.stat_notify_error)
@@ -95,7 +94,6 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
             public void  onClick(View view){
 
                 EstablishmentData establishmentData= establishmentList.get(position);
-                String image_url= "http://192.168.43.150/blowOut/" + establishmentData.image;
 
                 String estab_name= establishmentList.get(position).name;
 
@@ -103,7 +101,7 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
                 Log.d("Estab Adapter","Establishment address: " +establishmentData.address);
                 Log.d("Estab Adapter","Establishment name: "    +estab_name);
 
-                Toast.makeText(view.getContext(), "Establishment name: "+estab_name, Toast.LENGTH_SHORT);
+                Toast.makeText(view.getContext(), "Click to view products: "+estab_name, Toast.LENGTH_SHORT);
 
                 mListener.onItemClicked(establishmentData);
             }

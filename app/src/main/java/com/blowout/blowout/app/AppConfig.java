@@ -15,7 +15,12 @@ public class AppConfig {
     // LOCALHOST DIRECTORY PATH FOR establishment.php
     public static String URL_ESTABLISHMENT = "http://192.168.43.150/blowOut/establishment.php";
 
+    // LOCALHOST DIRECTORY PATH FOR establishment.php
+    public static String URL_ESTAB_PROFILE = "http://192.168.43.150/blowOut/estabProfile.php";
+
     // LOCALHOST DIRECTORY PATH FOR request_new_password.php
     public static String URL_FORGET_PASS = "http://192.168.43.150/blowOut/request_new_password.php";
 
+    // LOCALHOST DIRECTORY PATH FOR request_new_password.php
+    public static String URL_PRODUCT_LIST = "http://192.168.43.150/blowOut/estab_products.php";
 }

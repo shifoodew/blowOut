@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,32 +20,36 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.blowout.blowout.EstablishmentData;
+import com.blowout.blowout.MyAdapter.EstabProfileAdapter;
 import com.blowout.blowout.MyAdapter.EstablishmentAdapter;
 import com.blowout.blowout.MySingleton;
 import com.blowout.blowout.R;
 import com.blowout.blowout.app.AppConfig;
-import com.blowout.blowout.app.AppController;
 import com.kosalgeek.android.json.JsonConverter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EstablishmentFragment extends Fragment {
+public class EstablishmentProfileFragment extends Fragment {
 
-    final String TAG= "EstablishmentFragment";
-
+    final String TAG= "Estab Profile Frag";
     private ProgressDialog pDialog;
 
-    RecyclerView rvItem;
-    CardView cvItem;
+    private Button viewProducts;
+    private Button sendMessage;
+    private Button sendTextMessage;
 
-    public EstablishmentFragment() {
+    RecyclerView rvEstabProfile;
+
+    public EstablishmentProfileFragment() {
         // Required empty public constructor
     }
 
-    EstablishmentAdapter.ClickListener listener= new EstablishmentAdapter.ClickListener() {
+    EstabProfileAdapter.ClickListener listener= new EstabProfileAdapter.ClickListener() {
         @Override
         public void onItemClicked(EstablishmentData establishmentData) {
 
@@ -54,7 +58,7 @@ public class EstablishmentFragment extends Fragment {
             Log.d("onItemClicked", "Type: "+establishmentData.type );
             Log.d("onItemClicked", "Address: "+establishmentData.address );
 
-            Toast.makeText(getContext(), "Click to view products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Establishment name: "+establishmentData.name, Toast.LENGTH_SHORT).show();
 
             //Passing the data to another activity or fragment
             Bundle bundle=new Bundle();
@@ -69,40 +73,63 @@ public class EstablishmentFragment extends Fragment {
             bundle.putString("dti_permit", establishmentData.dti_permit);
             bundle.putString("phone", establishmentData.phone);
 
-            //Change to another fragment EstabProfle
+            //Change to another fragment EstabProduct
             FragmentManager fm= getFragmentManager();
             FragmentTransaction ft= fm.beginTransaction();
-            EstablishmentProfileFragment estab_profile= new EstablishmentProfileFragment();
-            estab_profile.setArguments(bundle);
-            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_profile);//fragment_restablishment_product.xml
+            EstablishmentProductFragment estab_product= new EstablishmentProductFragment();
+            estab_product.setArguments(bundle);
+
+            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_product);//fragment_restablishment_product.xml
             ft.addToBackStack(null);
             ft.commit();
         }
 
     };
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Progress dialog
         pDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
         pDialog.setCancelable(false);
 
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_establishment, container, false);
+        //Fetching data from EstablishmentFragment.java
+        String estab_id         = getArguments().getString("estab_id");
+        String estab_name       = getArguments().getString("name");
+        String estab_type       = getArguments().getString("type");
+        String estab_address    = getArguments().getString("address");
+        String estab_image      = getArguments().getString("image");
+        String estab_desc       = getArguments().getString("description");
+        String estab_email      = getArguments().getString("email");
+        String estab_permit     = getArguments().getString("dti_permit");
+        String estab_phone      = getArguments().getString("phone");
 
-        rvItem= rootView.findViewById(R.id.rv_recycler_view_fragment_accounts); //fragment_establishment.xml-> rvItem
-        rvItem.setHasFixedSize(true);
+        //passing data to getEstabProduct method
+        getEstabDetails(estab_id);
+
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_establishment_profile, container, false);
+
+        rvEstabProfile = rootView.findViewById(R.id.rv_recycler_view_estab_profile); //can be found in fragment_estab_profile
+        rvEstabProfile.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        rvItem.setLayoutManager(llm);
+        rvEstabProfile.setLayoutManager(llm);
 
-        String tag_string_req = "req_login";
+        return rootView;
+    }
 
-        pDialog.setMessage("Retrieving establishment ...");
+
+    private void getEstabDetails(final String estab_id){
+
+        String tag_string_req = "req_product";
+
+        pDialog.setMessage("Retrieving product list ...");
         showDialog();
 
-        StringRequest stringRequest= new StringRequest(Request.Method.GET,  AppConfig.URL_ESTABLISHMENT,
+        StringRequest stringRequest= new StringRequest(Request.Method.POST,  AppConfig.URL_ESTAB_PROFILE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -114,9 +141,9 @@ public class EstablishmentFragment extends Fragment {
 
                         if(!establishmentData.isEmpty()){
 
-                            EstablishmentAdapter adapter= new EstablishmentAdapter(getContext(), establishmentData, listener);
+                            EstabProfileAdapter adapter= new EstabProfileAdapter(getContext(), establishmentData, listener);
 
-                            rvItem.setAdapter(adapter);
+                            rvEstabProfile.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
 
@@ -137,10 +164,18 @@ public class EstablishmentFragment extends Fragment {
                         }
                     }
                 }
-        );
+        ){
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("estab_id", estab_id);
+
+                return params;
+            }
+        };
         MySingleton.getInstance(getContext()).addToRequestQueue(stringRequest, tag_string_req);
 //        AppController.getInstance().addToRequestQueue(stringRequest, tag_string_req);
-        return rootView;
     }
 
     private void showDialog() {
@@ -152,3 +187,4 @@ public class EstablishmentFragment extends Fragment {
             pDialog.dismiss();
     }
 }
+

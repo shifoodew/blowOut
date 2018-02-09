@@ -18,4 +18,14 @@ public class EstablishmentData implements Serializable {
 
     public String image;
 
+    public String description;
+
+    public String email;
+
+    public String owner;
+
+    public String dti_permit;
+
+    public String phone;
+
 }
