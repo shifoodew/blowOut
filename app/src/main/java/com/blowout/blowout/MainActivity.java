@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //layout->menu->activity_main_drawer.xml
         if (id == R.id.nav_establishment) {
 
             EstablishmentFragment ef= new EstablishmentFragment();
@@ -161,7 +162,11 @@ public class MainActivity extends AppCompatActivity
 
             Toast.makeText(getApplicationContext(), "Establishments", Toast.LENGTH_LONG).show();
 
-        } else if (id == R.id.nav_logout) {
+        }else if (id == R.id.nav_cart) {
+            //My Cart
+            Toast.makeText(getApplicationContext(), "My Cart coming soon", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.nav_logout) {
             logoutUser();
         }
 

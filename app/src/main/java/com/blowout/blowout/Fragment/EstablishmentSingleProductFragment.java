@@ -3,7 +3,6 @@ package com.blowout.blowout.Fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,7 +19,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.blowout.blowout.EstablishmentData;
+import com.blowout.blowout.MyAdapter.EstabProfileAdapter;
 import com.blowout.blowout.MyAdapter.EstablishmentProductAdapter;
+import com.blowout.blowout.MyAdapter.EstablishmentSingleProductAdapter;
 import com.blowout.blowout.MySingleton;
 import com.blowout.blowout.ProductData;
 import com.blowout.blowout.R;
@@ -34,57 +36,29 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EstablishmentProductFragment extends DialogFragment {
+public class EstablishmentSingleProductFragment extends Fragment {
 
-    final String TAG= "EstabProductFragment";
+    final String TAG= "EstablishmentSingleProductFragment";
 
     private ProgressDialog pDialog;
 
-    RecyclerView rvItem;
-    CardView cvItem;
+    RecyclerView rvProduct;
+    CardView cvProduct;
 
-    public EstablishmentProductFragment() {
+    public EstablishmentSingleProductFragment() {
         // Required empty public constructor
     }
 
-    EstablishmentProductAdapter.ClickListener listener= new EstablishmentProductAdapter.ClickListener() {
+    EstablishmentSingleProductAdapter.ClickListener listener= new EstablishmentSingleProductAdapter.ClickListener() {
         @Override
         public void onItemClicked(ProductData productData) {
 
-            Log.d("onItemClicked", "estab id: "             +productData.estab_id );
-            Log.d("onItemClicked", "product id: "           +productData.product_id );
-            Log.d("onItemClicked", "product type id: "      +productData.product_type_id );
-            Log.d("onItemClicked", "product name: "         +productData.product_name);
-            Log.d("onItemClicked", "product type name: "    +productData.product_type_name );
-            Log.d("onItemClicked", "description: "          +productData.description );
-            Log.d("onItemClicked", "image: "                +productData.image );
-            Log.d("onItemClicked", "price: "                +productData.price );
+            Log.d("onItemClicked", "id: "       +productData.estab_id );
+            Log.d("onItemClicked", "Name: "     +productData.product_name );
 
-            Toast.makeText(getContext(), "Product name: "+productData.product_name, Toast.LENGTH_SHORT).show();
-
-            //Passing the data to another activity or fragment (EstablishmentSingleProductFragment)
-            Bundle bundle=new Bundle();
-            bundle.putString("estab_id", productData.estab_id);
-            bundle.putString("product_id", productData.product_id);
-//            bundle.putString("type", productData.product_type_id);
-//            bundle.putString("address", productData.product_name);
-//            bundle.putString("image", productData.product_type_name);
-//            bundle.putString("description", productData.description);
-//            bundle.putString("email", productData.image);
-//            bundle.putString("owner", productData.price);
-
-            //Change to another fragment EstabProduct
-            FragmentManager fm= getFragmentManager();
-            FragmentTransaction ft= fm.beginTransaction();
-            EstablishmentSingleProductFragment estab_single_product= new EstablishmentSingleProductFragment();
-
-            estab_single_product.setArguments(bundle);
-
-            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_single_product);// will be replace fragment_establishment_single_product.xml
-            ft.addToBackStack(null);
-            ft.commit();
-
+            Toast.makeText(getContext(), "Establishment name: "+productData.product_name, Toast.LENGTH_SHORT).show();
         }
+
     };
 
     @Override
@@ -95,38 +69,35 @@ public class EstablishmentProductFragment extends DialogFragment {
         pDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
         pDialog.setCancelable(false);
 
-        //Fetching data from EstablishmentFragment.java
+        //Fetching data from EstablishmentProductFragment.java
         String estab_id = getArguments().getString("estab_id");
+        String product_id = getArguments().getString("product_id");
 
         //passing data to getEstabProduct method
-        getEstabProduct(estab_id);
+        getEstabProduct(estab_id, product_id);
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_establishment_product, container, false);
+//        return inflater.inflate(R.layout.fragment_establishment_single_product, container, false);
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_establishment_single_product, container, false);
 
-        rvItem = rootView.findViewById(R.id.rv_recycler_view_estab_product); //fragment_establishment.xml-> rvItem
-        rvItem.setHasFixedSize(true);
+        rvProduct = rootView.findViewById(R.id.rv_recycler_view_single_product); //can be found in fragment_establishment_single_product
+        rvProduct.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        rvItem.setLayoutManager(llm);
-
-
-        String tag_string_req = "req_data";
-
-        pDialog.setMessage("Retrieving product details ...");
-        showDialog();
+        rvProduct.setLayoutManager(llm);
 
         return rootView;
     }
 
-    private void getEstabProduct(final String estab_id){
+    private void getEstabProduct(final String estab_id, final String product_id){
 
         String tag_string_req = "req_product";
 
         pDialog.setMessage("Retrieving product list ...");
         showDialog();
 
-        StringRequest stringRequest= new StringRequest(Request.Method.POST,  AppConfig.URL_PRODUCT_LIST,
+        StringRequest stringRequest= new StringRequest(Request.Method.POST,  AppConfig.URL_PRODUCT_DETAILS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -138,15 +109,15 @@ public class EstablishmentProductFragment extends DialogFragment {
 
                         if(!productData.isEmpty()){
 
-                            EstablishmentProductAdapter adapter= new EstablishmentProductAdapter(getContext(), productData, listener);
+                            EstablishmentSingleProductAdapter adapter= new EstablishmentSingleProductAdapter(getContext(), productData, listener);
 
-                            rvItem.setAdapter(adapter);
+                            rvProduct.setAdapter(adapter);
 
                             adapter.notifyDataSetChanged();
 
                         }else{
 
-                            Toast.makeText(getContext(),"Product list empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"Product is empty", Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -167,6 +138,7 @@ public class EstablishmentProductFragment extends DialogFragment {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("estab_id", estab_id);
+                params.put("product_id", product_id);
 
                 return params;
             }
@@ -183,4 +155,5 @@ public class EstablishmentProductFragment extends DialogFragment {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 }

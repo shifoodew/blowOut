@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.blowout.blowout.EstablishmentData;
 import com.blowout.blowout.R;
+import com.blowout.blowout.app.AppConfig;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
 
         EstablishmentData establishmentData= establishmentList.get(position);
 //        String image_url= "http://192.168.43.150/blowOut/" + establishmentData.image;
-        String image_url= "http://192.168.43.150/blowOut/" + establishmentData.image;
+        String image_url= AppConfig.IMAGE_URL + establishmentData.image;
 
         Picasso.with(context)
                 .load(image_url)

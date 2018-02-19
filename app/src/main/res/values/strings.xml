@@ -14,17 +14,16 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_confrim_password">Confirm new password</string>
+    <string name="hint_forget_password">submit</string>
 
     <string name="btn_login">LOGIN</string>
     <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_forgetPass">Forgot your password?</string>
     <string name="btn_link_to_register">Not a member? Sign up now.</string>
     <string name="btn_link_to_login">Already registred! Log me in.</string>
 
     <!-- Activity main drawer.xml-->
     <!-- Menu Item strings-->
-    <string name="view_deposit">Deposit(s)</string>
-    <string name="view_account_receivable">Account receivable(s)</string>
-    <string name="loan_application">Apply loan</string>
     <string name="logout">Logout</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
 

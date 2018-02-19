@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.blowout.blowout.EstablishmentData;
 import com.blowout.blowout.ProductData;
 import com.blowout.blowout.R;
+import com.blowout.blowout.app.AppConfig;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class EstablishmentProductAdapter extends RecyclerView.Adapter<Establishm
     //This is the ViewHolder class
     public static class EstablishmentProductViewHolder extends RecyclerView.ViewHolder{
 
-        public CheckBox mCheckBox;
+//        public CheckBox mCheckBox;
         public CardView cvItem;
         public ImageView productImage;
         public TextView productName;
@@ -47,7 +48,7 @@ public class EstablishmentProductAdapter extends RecyclerView.Adapter<Establishm
         public EstablishmentProductViewHolder(View itemView) {
             super(itemView);
 
-            mCheckBox         = itemView.findViewById(R.id.checkboxSelect);
+//            mCheckBox         = itemView.findViewById(R.id.checkboxSelect);
             cvItem            = itemView.findViewById(R.id.productItem);
             productImage      = itemView.findViewById(R.id.productImage);
             productName       = itemView.findViewById(R.id.productName);
@@ -79,7 +80,7 @@ public class EstablishmentProductAdapter extends RecyclerView.Adapter<Establishm
 
         final ProductData productData= productList.get(position);
 
-        String image_url= "http://192.168.43.150/blowOut/" + productData.image;
+        String image_url= AppConfig.IMAGE_URL + productData.image;
 
         Picasso.with(context)
                 .load(image_url)

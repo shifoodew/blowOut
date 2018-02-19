@@ -56,7 +56,7 @@ public class EstablishmentFragment extends Fragment {
 
             Toast.makeText(getContext(), "Click to view products", Toast.LENGTH_SHORT).show();
 
-            //Passing the data to another activity or fragment
+            //Passing the data to another activity or fragment EstablishmentProfileFragment
             Bundle bundle=new Bundle();
             bundle.putString("estab_id", establishmentData.id);
             bundle.putString("name", establishmentData.name);
@@ -74,7 +74,7 @@ public class EstablishmentFragment extends Fragment {
             FragmentTransaction ft= fm.beginTransaction();
             EstablishmentProfileFragment estab_profile= new EstablishmentProfileFragment();
             estab_profile.setArguments(bundle);
-            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_profile);//fragment_restablishment_product.xml
+            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_profile);//will be replace fragment_establishment_product.xml
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -97,7 +97,7 @@ public class EstablishmentFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rvItem.setLayoutManager(llm);
 
-        String tag_string_req = "req_login";
+        String tag_string_req = "req_data";
 
         pDialog.setMessage("Retrieving establishment ...");
         showDialog();

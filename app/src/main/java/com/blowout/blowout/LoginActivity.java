@@ -35,6 +35,7 @@ public class LoginActivity  extends Activity {
 
     private Button btnLogin;
     private Button btnLinkToRegister;
+    private Button btnLinkToForgotPass;
 
     private EditText inputUsername;
     private EditText inputPassword;
@@ -46,10 +47,11 @@ public class LoginActivity  extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        inputUsername     = findViewById(R.id.username);
-        inputPassword     = findViewById(R.id.password);
-        btnLogin          = findViewById(R.id.btnLogin);
-        btnLinkToRegister = findViewById(R.id.btnLinkToRegisterScreen);
+        inputUsername       = findViewById(R.id.username);
+        inputPassword       = findViewById(R.id.password);
+        btnLogin            = findViewById(R.id.btnLogin);
+        btnLinkToRegister   = findViewById(R.id.btnLinkToRegisterScreen);
+        btnLinkToForgotPass = findViewById(R.id.btnLinkTForgetPass);
 
         // Progress dialog
         pDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
@@ -70,6 +72,17 @@ public class LoginActivity  extends Activity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
                         RegisterActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        // Link to Forget password
+        btnLinkToForgotPass.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        ForgotPassword.class);
                 startActivity(i);
                 finish();
             }

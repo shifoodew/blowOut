@@ -1,11 +1,13 @@
 package com.blowout.blowout.Fragment;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -73,13 +75,14 @@ public class EstablishmentProfileFragment extends Fragment {
             bundle.putString("dti_permit", establishmentData.dti_permit);
             bundle.putString("phone", establishmentData.phone);
 
-            //Change to another fragment EstabProduct
+            //Change to another fragment EstablishmentProductFragment
             FragmentManager fm= getFragmentManager();
             FragmentTransaction ft= fm.beginTransaction();
             EstablishmentProductFragment estab_product= new EstablishmentProductFragment();
+
             estab_product.setArguments(bundle);
 
-            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_product);//fragment_restablishment_product.xml
+            ft.replace(R.id.content_main_relativelayout_for_fragment, estab_product);//will be replace fragment_establishment_product.xml
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -112,7 +115,7 @@ public class EstablishmentProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_establishment_profile, container, false);
 
-        rvEstabProfile = rootView.findViewById(R.id.rv_recycler_view_estab_profile); //can be found in fragment_estab_profile
+        rvEstabProfile = rootView.findViewById(R.id.rv_recycler_view_estab_profile); //can be found in fragment_establishment_profile
         rvEstabProfile.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -120,7 +123,6 @@ public class EstablishmentProfileFragment extends Fragment {
 
         return rootView;
     }
-
 
     private void getEstabDetails(final String estab_id){
 
