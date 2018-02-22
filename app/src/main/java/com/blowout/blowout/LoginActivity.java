@@ -157,8 +157,10 @@ public class LoginActivity  extends Activity {
                             String email = userJSONObject.getString("email");
                                 Log.d(TAG, "USER -email attribute      : " + userJSONObject.get("email").toString());
 
+
                             // Launch main activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("user_id", user_id); //passing data to another activity
                             intent.putExtra("name", name); //passing data to another activity
                             intent.putExtra("username", email); //passing data to another activity
                             startActivity(intent);

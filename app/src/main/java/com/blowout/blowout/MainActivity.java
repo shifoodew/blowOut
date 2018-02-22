@@ -6,8 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -19,15 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blowout.blowout.Fragment.CartFragment;
 import com.blowout.blowout.Fragment.EstablishmentFragment;
-import com.blowout.blowout.MyAdapter.EstablishmentAdapter;
 import com.blowout.blowout.helper.SessionManager;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,9 +61,11 @@ public class MainActivity extends AppCompatActivity
 
         String name = getIntent().getStringExtra("name"); //fetch data from another activity.
         String user = getIntent().getStringExtra("username"); //fetch data from another activity.
+        String user_id = getIntent().getStringExtra("user_id"); //fetch data from loginActivty
 
-        Log.d("MainActivity","name:" +name);
-        Log.d("MainActivity","username:" +user);
+        Log.d("MainActivity","name:"         +name);
+        Log.d("MainActivity","username:"     +user);
+        Log.d("MainActivity","user id:"      +user_id);
 
         nav_header_name = findViewById(R.id.nav_header_username);
 
@@ -79,41 +76,8 @@ public class MainActivity extends AppCompatActivity
             logoutUser();
         }
 
-        //Displaying the user info in nav_header_main.xml
-//        nav_header_name.setText("hahah");
-
-//        rvItem= findViewById(R.id.rv_recycler_view_fragment_accounts);//fragment_establishment.xml-> rvItem
-////        cvItem= findViewById(R.id.cvItem);//card_Item.xml
-//        rvItem.setHasFixedSize(true);
-//
-//        LinearLayoutManager manager= new LinearLayoutManager(this);
-//        rvItem.setLayoutManager(manager);
-//
-//        //Get the dummy data
-//        ArrayList<EstablishmentData> establishment_list = generatedDummy();
-//
-//        EstablishmentAdapter adapter= new EstablishmentAdapter(this, establishment_list);
-//
-//        rvItem.setAdapter(adapter);
-
     }
 
-//    //List Method
-//    private ArrayList<EstablishmentData> generatedDummy(){
-//        ArrayList<EstablishmentData> list= new ArrayList<>();
-//        for(int i= 0; i < 10; i++){
-//
-//            EstablishmentData est_list= new EstablishmentData();
-//            est_list.estabImage= "https://pinoyinvestigador.files.wordpress.com/2013/07/2-jollibee.jpeg";
-//            est_list.estabName= "Lapriza Food Corps (Branch "+i+")";
-//            est_list.estabAddress= "Sambag "+i;
-//
-//            list.add(est_list);
-//        }
-//
-//        return list;
-//
-//    }
 
     @Override
     public void onBackPressed() {
@@ -163,8 +127,18 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Establishments", Toast.LENGTH_LONG).show();
 
         }else if (id == R.id.nav_cart) {
-            //My Cart
-            Toast.makeText(getApplicationContext(), "My Cart coming soon", Toast.LENGTH_LONG).show();
+            String user_id = getIntent().getStringExtra("user_id"); //fetch data from loginActivty
+            Log.d("Navigation","user id:"      +user_id);
+
+            Bundle data = new Bundle();//create bundle instance
+            data.putString("user_id", user_id);//put string to pass with a key value
+            //Cart
+            CartFragment cart= new CartFragment();
+            cart.setArguments(data);//Set bundle data to fragment
+            FragmentManager manager= getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_main_relativelayout_for_fragment, cart).commit();
+
+//            Toast.makeText(getApplicationContext(), "My Cart coming soon", Toast.LENGTH_LONG).show();
         }
         else if (id == R.id.nav_logout) {
             logoutUser();
