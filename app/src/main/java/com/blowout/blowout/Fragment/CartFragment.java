@@ -53,7 +53,7 @@ public class CartFragment extends Fragment {
             Log.d("onItemClicked", "Name: "     +cartData.cart_item_name);
             Log.d("onItemClicked", "Type: "     +cartData.cart_item_type);
 
-            Toast.makeText(getContext(), "Click to view products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Click to view products "+cartData.cart_id, Toast.LENGTH_SHORT).show();
 
             //Passing the data to another activity or fragment EstablishmentProfileFragment
 //            Bundle bundle=new Bundle();
