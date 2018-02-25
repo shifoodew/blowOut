@@ -2,6 +2,7 @@ package com.blowout.blowout.Fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +34,8 @@ import com.kosalgeek.android.json.JsonConverter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,9 +80,6 @@ public class EstablishmentSingleProductFragment extends Fragment {
         //passing data to getEstabProduct method
         getEstabProduct(estab_id, product_id);
 
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_establishment_single_product, container, false);
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_establishment_single_product, container, false);
 
         rvProduct = rootView.findViewById(R.id.rv_recycler_view_single_product); //can be found in fragment_establishment_single_product
@@ -107,7 +108,9 @@ public class EstablishmentSingleProductFragment extends Fragment {
                         ArrayList<ProductData> productData = new JsonConverter<ProductData>()
                                 .toArrayList(response, ProductData.class);
 
-                        if(!productData.isEmpty()){
+                        Log.d("Check data"," "+productData);
+
+                        if(productData != null){
 
                             EstablishmentSingleProductAdapter adapter= new EstablishmentSingleProductAdapter(getContext(), productData, listener);
 

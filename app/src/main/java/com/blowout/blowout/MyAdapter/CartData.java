@@ -10,25 +10,15 @@ public class CartData implements Serializable {
 
     public String cart_id;
 
-    public String cart_item_id;
-
-    public String cart_item_type;
-
-    public String cart_quantity;
-
-    public String cart_user;
-
-    public String cart_created_at;
-
-    public String cart_updated_at;
-
-
-
-    public String cart_item_image;
-
     public String cart_item_name;
 
     public String cart_item_price;
+
+    public String cart_type;
+
+    public String cart_item_qty;
+
+    public String cart_total;
 
 
 }

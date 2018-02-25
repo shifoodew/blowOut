@@ -33,7 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/estabImage"
                 android:layout_toRightOf="@+id/estabImage"
-                android:text="Lapreza Food station"
+                android:text="No Establishment found"
                 android:textSize="20sp" />
 
             <TextView
@@ -43,7 +43,6 @@
                 android:layout_below="@+id/estabName"
                 android:layout_toEndOf="@+id/estabImage"
                 android:layout_toRightOf="@+id/estabImage"
-                android:text="96 J. Alacantara street"
                 android:textSize="13sp" />
 
         </RelativeLayout>

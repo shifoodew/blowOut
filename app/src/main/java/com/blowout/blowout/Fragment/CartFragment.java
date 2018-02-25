@@ -22,6 +22,7 @@ import com.blowout.blowout.MyAdapter.CartData;
 import com.blowout.blowout.MySingleton;
 import com.blowout.blowout.R;
 import com.blowout.blowout.app.AppConfig;
+import com.blowout.blowout.helper.SQLiteHandler;
 import com.kosalgeek.android.json.JsonConverter;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class CartFragment extends Fragment {
 
     final String TAG= "CartFragment";
 
+    private SQLiteHandler db;
     private ProgressDialog pDialog;
 
     RecyclerView rvItem;
@@ -49,9 +51,8 @@ public class CartFragment extends Fragment {
         public void onItemClicked(CartData cartData) {
 
             Log.d("onItemClicked", "id: "       +cartData.cart_id);
-            Log.d("onItemClicked", "user: "     +cartData.cart_user);
             Log.d("onItemClicked", "Name: "     +cartData.cart_item_name);
-            Log.d("onItemClicked", "Type: "     +cartData.cart_item_type);
+            Log.d("onItemClicked", "Type: "     +cartData.cart_type);
 
             Toast.makeText(getContext(), "Click to view products "+cartData.cart_id, Toast.LENGTH_SHORT).show();
 
@@ -85,9 +86,13 @@ public class CartFragment extends Fragment {
         pDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
         pDialog.setCancelable(false);
 
-        //Fetching data from MainActivity.java
-        String getArgument_user_id = getArguments().getString("user_id");//Get pass data with its key value
-        String user = getArgument_user_id;
+        // SqLite database handler
+        db = new SQLiteHandler(getContext());
+
+        //Fetching user details from SQLite
+        HashMap<String, String> dbData = db.getUserDetails();
+
+        String user= dbData.get("u_id");
         Log.d(TAG, "OnCreateView USER user_id         : " + user);
 
         //passing data to showCart method
@@ -117,13 +122,14 @@ public class CartFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, response);
+                        Log.d(TAG, "Cart json response: " +response);
                         hideDialog();
 
                         ArrayList<CartData> cartData = new JsonConverter<CartData>()
                                 .toArrayList(response, CartData.class);
+                        Log.d(TAG, "Cart json response: " +cartData);
 
-                        if(!cartData.isEmpty()){
+                        if(cartData.contains("error") != true){
 
                             CartAdapter adapter= new CartAdapter(getContext(), cartData, listener);
 

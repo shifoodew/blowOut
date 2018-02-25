@@ -1,6 +1,7 @@
 package com.blowout.blowout.MyAdapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +21,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by shifoodew on 2/19/2018.
  */
 
 public class EstablishmentSingleProductAdapter extends RecyclerView.Adapter<EstablishmentSingleProductAdapter.EstablishmentSingleProductViewHolder> {
+
 
     private Context context;
     private ArrayList<ProductData> product;
@@ -38,7 +42,6 @@ public class EstablishmentSingleProductAdapter extends RecyclerView.Adapter<Esta
     //This is the ViewHolder class
     public static class EstablishmentSingleProductViewHolder extends RecyclerView.ViewHolder{
 
-        //        public CheckBox mCheckBox;
         public CardView cvItem;
         public ImageView productImage;
 
@@ -59,7 +62,7 @@ public class EstablishmentSingleProductAdapter extends RecyclerView.Adapter<Esta
             productDesc       = itemView.findViewById(R.id.product_description);
             productPrice      = itemView.findViewById(R.id.product_price);
             productQty        = itemView.findViewById(R.id.product_qty);
-            productTotaPrice  = itemView.findViewById(R.id.product_total_price);
+//            productTotaPrice  = itemView.findViewById(R.id.product_total_price);
             addCart           = itemView.findViewById(R.id.submitProduct);
         }
     }
@@ -104,6 +107,17 @@ public class EstablishmentSingleProductAdapter extends RecyclerView.Adapter<Esta
         holder.productPrice.setText(productData.price);
         holder.productPrice.setTextColor(Color.rgb(66,139,202));
 
+        //Button addToCart
+        holder.addCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(v.getContext(),
+                        "something went wrong", Toast.LENGTH_LONG)
+                        .show();
+
+            }
+        });
 
         holder.cvItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +129,7 @@ public class EstablishmentSingleProductAdapter extends RecyclerView.Adapter<Esta
 
                 Log.d("SingleProdAdapter","Product name: "              +productData.product_name);
 
-                Toast.makeText(view.getContext(), "Establishment name: "    +productName, Toast.LENGTH_SHORT);
+//                Toast.makeText(view.getContext(), "Establishment name: "    +productName, Toast.LENGTH_SHORT);
 
                 mListener.onItemClicked(productData);
             }

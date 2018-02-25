@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.blowout.blowout.app.AppConfig;
 import com.blowout.blowout.app.AppController;
+import com.blowout.blowout.helper.SQLiteHandler;
 import com.blowout.blowout.helper.SessionManager;
 
 import org.json.JSONArray;
@@ -42,6 +43,7 @@ public class LoginActivity  extends Activity {
 
     private ProgressDialog pDialog;
     private SessionManager session;
+    private SQLiteHandler db;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -56,6 +58,8 @@ public class LoginActivity  extends Activity {
         // Progress dialog
         pDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         pDialog.setCancelable(false);
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext());
 
         session = new SessionManager(getApplicationContext());
         // Check if user is already logged in or not
@@ -157,6 +161,9 @@ public class LoginActivity  extends Activity {
                             String email = userJSONObject.getString("email");
                                 Log.d(TAG, "USER -email attribute      : " + userJSONObject.get("email").toString());
 
+                            String user_name= name;
+                            String user_email= email;
+                            db.addUser(user_id, user_name, user_email);
 
                             // Launch main activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);

@@ -66,6 +66,7 @@ public class EstablishmentProductFragment extends DialogFragment {
             Bundle bundle=new Bundle();
             bundle.putString("estab_id", productData.estab_id);
             bundle.putString("product_id", productData.product_id);
+
 //            bundle.putString("type", productData.product_type_id);
 //            bundle.putString("address", productData.product_name);
 //            bundle.putString("image", productData.product_type_name);
@@ -136,7 +137,7 @@ public class EstablishmentProductFragment extends DialogFragment {
                         ArrayList<ProductData> productData = new JsonConverter<ProductData>()
                                 .toArrayList(response, ProductData.class);
 
-                        if(!productData.isEmpty()){
+                        if(productData != null){
 
                             EstablishmentProductAdapter adapter= new EstablishmentProductAdapter(getContext(), productData, listener);
 

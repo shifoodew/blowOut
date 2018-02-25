@@ -90,13 +90,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapterVie
         holder.cartProductName.setText(cartData.cart_item_name);
         holder.cartProductName.setTextColor(Color.rgb(66,139,202));
 
-//        holder.cartProductPrice.setText(cartData.description);
+        holder.cartProductPrice.setText(cartData.cart_item_price);
 
-        holder.cartProductqty.setText(cartData.cart_quantity);
+        holder.cartProductqty.setText(cartData.cart_item_qty);
         holder.cartProductqty.setTextColor(Color.rgb(66,139,202));
 
         holder.cartTotalPrice.setText(cartData.cart_item_price);
         holder.cartTotalPrice.setTextColor(Color.rgb(66,139,202));
+
+        holder.cartTotalPrice.setText(cartData.cart_total);
+        holder.cartTotalPrice.setTextColor(Color.rgb(66,139,202));
+
 
         holder.cvCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartAdapterVie
 
 
                 Log.d("Estab Adapter","Cart id: "    +cartData.cart_id);
-                Log.d("Estab Adapter","Cart item type: " +cartData.cart_item_type);
+                Log.d("Estab Adapter","Cart item type: " +cartData.cart_type);
                 Log.d("Estab Adapter","Cart item name: " +cartData.cart_item_name);
 
                 Toast.makeText(view.getContext(), "Click to view data: "+cartData.cart_id, Toast.LENGTH_SHORT);

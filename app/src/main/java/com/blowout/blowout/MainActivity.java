@@ -1,6 +1,8 @@
 package com.blowout.blowout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,10 +24,15 @@ import android.widget.Toast;
 
 import com.blowout.blowout.Fragment.CartFragment;
 import com.blowout.blowout.Fragment.EstablishmentFragment;
+import com.blowout.blowout.helper.SQLiteHandler;
 import com.blowout.blowout.helper.SessionManager;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SQLiteHandler db;
 
     RecyclerView rvItem;
     CardView cvItem;
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,15 +67,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String name = getIntent().getStringExtra("name"); //fetch data from another activity.
-        String user = getIntent().getStringExtra("username"); //fetch data from another activity.
-        String user_id = getIntent().getStringExtra("user_id"); //fetch data from loginActivty
-
-        Log.d("MainActivity","name:"         +name);
-        Log.d("MainActivity","username:"     +user);
-        Log.d("MainActivity","user id:"      +user_id);
-
         nav_header_name = findViewById(R.id.nav_header_username);
+
+        // SqLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+        //Fetching user details from SQLite
+        HashMap<String, String> dbData = db.getUserDetails();
+
+        String id= dbData.get("u_id");
+        Log.d("MainActivity", "Check Data main activity  user id       : " + id);
 
         // session manager
         session = new SessionManager(getApplicationContext());
@@ -130,11 +138,8 @@ public class MainActivity extends AppCompatActivity
             String user_id = getIntent().getStringExtra("user_id"); //fetch data from loginActivty
             Log.d("Navigation","user id:"      +user_id);
 
-            Bundle data = new Bundle();//create bundle instance
-            data.putString("user_id", user_id);//put string to pass with a key value
             //Cart
             CartFragment cart= new CartFragment();
-            cart.setArguments(data);//Set bundle data to fragment
             FragmentManager manager= getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_main_relativelayout_for_fragment, cart).commit();
 
@@ -151,6 +156,7 @@ public class MainActivity extends AppCompatActivity
 
     private void logoutUser() {
         session.setLogin(false);
+        db.deleteUserData();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();

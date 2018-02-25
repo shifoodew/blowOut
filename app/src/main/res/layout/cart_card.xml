@@ -33,7 +33,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/cartProductImage"
                 android:layout_toRightOf="@+id/cartProductImage"
-                android:text="Product name"
                 android:textSize="20sp" />
 
             <TextView
@@ -43,7 +42,7 @@
                 android:layout_below="@+id/cartProductName"
                 android:layout_toEndOf="@+id/cartProductImage"
                 android:layout_toRightOf="@+id/cartProductImage"
-                android:text="Product price"
+                android:text="No data found"
                 android:textSize="13sp" />
 
             <TextView
@@ -53,7 +52,6 @@
                 android:layout_below="@+id/cartProductPrice"
                 android:layout_toEndOf="@+id/cartProductImage"
                 android:layout_toRightOf="@+id/cartProductImage"
-                android:text="Product Qty"
                 android:textSize="12sp" />
 
             <TextView
@@ -63,7 +61,6 @@
                 android:layout_below="@+id/cartProductqty"
                 android:layout_toEndOf="@+id/cartProductImage"
                 android:layout_toRightOf="@+id/cartProductImage"
-                android:text="Total price"
                 android:textSize="12sp" />
 
         </RelativeLayout>

@@ -70,23 +70,23 @@
                 android:ems="10"
                 android:inputType="number" />
 
-            <TextView
-                android:id="@+id/product_total_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/product_qty"
-                android:gravity="left"
-                android:text="Total price: "
-                android:textSize="15sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp" />
+            <!--<TextView-->
+                <!--android:id="@+id/product_total_price"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/product_qty"-->
+                <!--android:gravity="left"-->
+                <!--android:text="Total price: "-->
+                <!--android:textSize="15sp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:layout_marginRight="5dp" />-->
 
             <Button
                 android:id="@+id/submitProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/product_total_price"
+                android:layout_below="@+id/product_qty"
                 android:layout_weight="1"
                 android:layout_marginTop="25dp"
                 android:text="Add to cart" />

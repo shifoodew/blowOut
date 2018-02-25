@@ -112,7 +112,7 @@ public class EstablishmentFragment extends Fragment {
                         ArrayList<EstablishmentData> establishmentData = new JsonConverter<EstablishmentData>()
                                 .toArrayList(response, EstablishmentData.class);
 
-                        if(!establishmentData.isEmpty()){
+                        if(establishmentData != null){
 
                             EstablishmentAdapter adapter= new EstablishmentAdapter(getContext(), establishmentData, listener);
 
