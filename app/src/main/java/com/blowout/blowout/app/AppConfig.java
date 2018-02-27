@@ -27,6 +27,8 @@ public class AppConfig {
     // LOCALHOST DIRECTORY PATH FOR get_single_product.php
     public static String URL_PRODUCT_DETAILS = "http://192.168.43.150/blowOut/getSingleProduct.php";
 
+    public static String URL_ADD_CART= "http://192.168.43.150/blowOut/addToCart.php";
+
     public static String URL_SHOW_CART= "http://192.168.43.150/blowOut/showCart.php";
 
     //LOCAL HOST IMAGE URL

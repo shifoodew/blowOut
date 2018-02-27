@@ -170,7 +170,6 @@ public class RegisterActivity extends Activity {
                 hideDialog();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting params to register url
